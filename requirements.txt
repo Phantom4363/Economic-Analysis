@@ -1,0 +1,7 @@
+streamlit==1.26.0
+pandas>=1.5
+numpy>=1.24
+plotly>=5.15
+fredapi>=0.4.0
+wbgapi>=1.0.2
+python-dateutil>=2.8
