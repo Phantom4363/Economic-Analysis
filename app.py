@@ -65,7 +65,11 @@ def get_wb(country: str, indicator: str) -> pd.DataFrame:
         data = wb.data.DataFrame(indicator, economy=country, time=range(datetime.now().year - 20, datetime.now().year+1))
         data = data.T.reset_index()
         data.columns = ["date", "value"]
-        data["date"] = pd.to_datetime(data["date"], format="%Y")
+        # ------------------------
+        # NEW: Strip 'YR' prefix if present
+        data["date"] = data["date"].astype(str).str.replace("YR", "")
+        data["date"] = pd.to_datetime(data["date"], format="%Y", errors='coerce')
+        # ------------------------
         data = data.sort_values("date")
         data["value"] = pd.to_numeric(data["value"], errors="coerce")
         data = data.dropna()
